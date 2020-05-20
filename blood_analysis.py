@@ -38,7 +38,24 @@ def HDL_interface():
     HDL_status = HDL_analysis(int(HDL_result[1]))
     print("HDL status is {}". format(HDL_status))
     pass # allows a function to be happy with nothing there- pass is a line of code that doesn't do anything
-    
+
+def TC_interface():
+    print("Total Cholesterol Interface")
+    print("Please input the result in the following format: ")
+    print("  TC=### where ### is the numeric result")
+    TC_input = input("Result: ")
+    TC_result = TC_input.split("=")
+    TC_status = TC_analysis(int(TC_result[1]))
+    print("Total Cholesterol status is {}".format(TC_status))
+
+def TC_analysis(TC_result):
+    if TC_result >= 240:
+        return "High"
+    elif 200 <= TC_result <= 239:
+        return "Borderline High"
+    else:
+        return "Normal"
+
     
 def interface():
     print("My Blood Analysis Calculator")
@@ -46,7 +63,9 @@ def interface():
     while keep_running: # block of code will continually be run until option 9
         print("\nOptions")
         print("1-HDL Analysis")
+        print("2-LDL Analysis")
         print("9-Quit")
+        print("3-Total Cholesterol Check")
         choice = input("Choose an option: ")
         if choice == "9": # number is a string when you input it!
             keep_running = False
@@ -54,6 +73,8 @@ def interface():
             HDL_interface()
         elif choice == "2":
             LDL_interface()
+        elif choice == "3":
+            TC_interface()
         
         
 if __name__ == "__main__":
