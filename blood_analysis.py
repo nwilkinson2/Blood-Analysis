@@ -44,6 +44,17 @@ def TC_interface():
     print("Please input the result in the following format: ")
     print("  TC=### where ### is the numeric result")
     TC_input = input("Result: ")
+    TC_result = TC_input.split("=")
+    TC_status = TC_analysis(int(TC_result[1]))
+    print("Total Cholesterol status is {}".format(TC_status))
+
+def TC_analysis(TC_result):
+    if TC_result >= 240:
+        return "High"
+    elif 200 <= TC_result <= 239:
+        return "Borderline High"
+    else:
+        return "Normal"
 
     
 def interface():
