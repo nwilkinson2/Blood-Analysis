@@ -18,6 +18,13 @@ def HDL_analysis(HDL_result):
     else:
         return "Bad"
         
+def verify_entry(HDL_result):
+    if HDL_result[0] != "HDL":
+        return False
+    if not HDL_result[1].isnumeric():
+        return False
+    return True
+    
 def LDL_interface():
     # Input should be LDL=130
     print("LDL Interface")
@@ -35,8 +42,11 @@ def HDL_interface():
     print("  HDL=## where ## is the numeric result")
     HDL_input = input("Result: ")
     HDL_result = HDL_input.split("=") 
-    HDL_status = HDL_analysis(int(HDL_result[1]))
-    print("HDL status is {}". format(HDL_status))
+    if verify_entry(HDL_result):
+        HDL_status = HDL_analysis(int(HDL_result[1]))
+        print("HDL status is {}". format(HDL_status))
+    else:
+        print("Bad entry")
     pass # allows a function to be happy with nothing there- pass is a line of code that doesn't do anything
 
 def TC_interface():
