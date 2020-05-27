@@ -52,7 +52,9 @@ def HDL_interface():
         print("HDL status is {}". format(HDL_status))
     else:
         print("Bad entry")
-    pass # allows a function to be happy with nothing there- pass is a line of code that doesn't do anything
+    pass
+# allows a function to be happy with nothing there- pass is a line
+# of code that doesn't do anything
 
 
 def TC_interface():
@@ -76,15 +78,15 @@ def TC_analysis(TC_result):
 
 def interface():
     print("My Blood Analysis Calculator")
-    keep_running = True # boolean variable- can also use a string
-    while keep_running: # block of code will continually be run until option 9
+    keep_running = True  # boolean variable- can also use a string
+    while keep_running:  # block of code will continually be run until option 9
         print("\nOptions")
         print("1-HDL Analysis")
         print("2-LDL Analysis")
         print("9-Quit")
         print("3-Total Cholesterol Check")
         choice = input("Choose an option: ")
-        if choice == "9": # number is a string when you input it!
+        if choice == "9":  # number is a string when you input it!
             keep_running = False
         elif choice == "1":
             HDL_interface()
@@ -92,32 +94,33 @@ def interface():
             LDL_interface()
         elif choice == "3":
             TC_interface()
-   
 
-def line_equation(p1,p2):
-    x1,y1 =p1
-    x2,y2 = p2
+
+def line_equation(p1, p2):
+    x1, y1 = p1
+    x2, y2 = p2
     m = (y1-y2)/(x1-x2)
     b = y1-m*x1
-    return m,b
-    
+    return m, b
+
+
 def newPoint(m, b, x):
-    y=m*x+b
+    y = m*x+b
     return y
 
-def line_generation(p1,p2,x):
-    return newPoint(line_equation(p1,p2)[0], line_equation(p1,p2)[1], x)
-    
-def line_check(p1,p2,p3):
-    a=line_equation(p1,p2)[0]
-    b=line_equation(p2,p3)[0]
+
+def line_generation(p1, p2, x):
+    return newPoint(line_equation(p1, p2)[0], line_equation(p1, p2)[1], x)
+
+
+def line_check(p1, p2, p3):
+    a = line_equation(p1, p2)[0]
+    b = line_equation(p2, p3)[0]
     if a == b:
         return True
     else:
         return False
 
-    
-
 
 if __name__ == "__main__":
-    interface() # calls the function- need to do this in if statement!
+    interface()  # calls the function- need to do this in if statement!
