@@ -1,4 +1,5 @@
 # blood_analysis.py
+import json
 
 
 def LDL_analysis(LDL_result):
@@ -29,7 +30,7 @@ def verify_entry(HDL_result):
     return True
 
 
-def LDL_interface():
+def LDL_interface(patient):
     # Input should be LDL=130
     print("LDL Interface")
     print("Please input the result in the following format: ")
@@ -38,9 +39,10 @@ def LDL_interface():
     LDL_result = LDL_input.split("=")
     LDL_status = LDL_analysis(int(LDL_result[1]))
     print("LDL status is {}".format(LDL_status))
+    patient["LDL status"] = LDL_status
 
 
-def HDL_interface():
+def HDL_interface(patient):
     # Input should be HDL=66
     print("HDL Interface")
     print("Please input the result in the following format: ")
@@ -52,12 +54,13 @@ def HDL_interface():
         print("HDL status is {}". format(HDL_status))
     else:
         print("Bad entry")
+    patient["HDL status"] = HDL_status
     pass
 # allows a function to be happy with nothing there- pass is a line
 # of code that doesn't do anything
 
 
-def TC_interface():
+def TC_interface(patient):
     print("Total Cholesterol Interface")
     print("Please input the result in the following format: ")
     print("  TC=### where ### is the numeric result")
@@ -65,6 +68,7 @@ def TC_interface():
     TC_result = TC_input.split("=")
     TC_status = TC_analysis(int(TC_result[1]))
     print("Total Cholesterol status is {}".format(TC_status))
+    patient["TC status"] = TC_status
 
 
 def TC_analysis(TC_result):
@@ -78,6 +82,12 @@ def TC_analysis(TC_result):
 
 def interface():
     print("My Blood Analysis Calculator")
+    print("Insert Patient Data: ")
+    a = input("First Name: ")
+    b = input("Last Name: ")
+    c = input("Age: ")
+    profile = create_profile(a, b, c)
+    print(profile)
     keep_running = True  # boolean variable- can also use a string
     while keep_running:  # block of code will continually be run until option 9
         print("\nOptions")
@@ -89,11 +99,24 @@ def interface():
         if choice == "9":  # number is a string when you input it!
             keep_running = False
         elif choice == "1":
-            HDL_interface()
+            HDL_interface(profile)
         elif choice == "2":
-            LDL_interface()
+            LDL_interface(profile)
         elif choice == "3":
-            TC_interface()
+            TC_interface(profile)
+        print(profile)
+    output_json(profile)
+
+def create_profile(a, b, c):
+    patient = {"First Name": a, "Last Name": b, "Age": c}
+    return patient
+
+
+def output_json(my_dict):
+    filename = "patient.json"
+    out_file = open(filename, 'w')
+    json.dump(my_dict, out_file)
+    out_file.close()
 
 
 def line_equation(p1, p2):
@@ -124,3 +147,4 @@ def line_check(p1, p2, p3):
 
 if __name__ == "__main__":
     interface()  # calls the function- need to do this in if statement!
+
